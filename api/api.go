@@ -21,8 +21,8 @@ func (api API) RunServer() error {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/helloworld", MyHandler).Methods("GET")
 
-	fs := http.FileServer(http.Dir("Public/"))
-	r.PathPrefix("/Public/").Handler(http.StripPrefix("/Public/", fs))
+	fs := http.FileServer(http.Dir("client/build/"))
+	r.PathPrefix("/").Handler(http.StripPrefix("/", fs))
 
 	fmt.Printf("Running server on port %s\n", api.Port)
 	http.ListenAndServe(":"+api.Port, r)
